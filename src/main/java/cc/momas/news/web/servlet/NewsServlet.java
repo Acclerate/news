@@ -4,12 +4,11 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(value = { "/news" }, description = "新闻相关", displayName = "NewsServlet", name = "NewsServlet")
-public class NewsServlet extends HttpServlet {
+public class NewsServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 4760738305339469459L;
 
@@ -44,7 +43,8 @@ public class NewsServlet extends HttpServlet {
 	 * 用于删除新闻
 	 */
 	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doDelete(request, response);
 	}

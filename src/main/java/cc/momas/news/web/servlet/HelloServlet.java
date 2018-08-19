@@ -1,14 +1,14 @@
 package cc.momas.news.web.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(value = { "/hello" }, description = "一个测试用的Servlet", displayName = "HelloServlet", name = "HelloServlet")
-public class HelloServlet extends HttpServlet {
+public class HelloServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

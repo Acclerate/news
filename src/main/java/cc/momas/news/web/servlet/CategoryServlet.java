@@ -4,12 +4,11 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(value = { "/category" }, description = "分类相关", displayName = "CategoryServlet", name = "CategoryServlet")
-public class CategoryServlet extends HttpServlet{
+public class CategoryServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 2098019378925261469L;
 
