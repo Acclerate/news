@@ -7,7 +7,7 @@
 - Apache-Tomcat-9.0
 - Servlet3.0
 - JDBC
-- MySQL5.7
+- MySQL5.5
 
 ## 项目启动 - Start Project
 
