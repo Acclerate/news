@@ -13,6 +13,9 @@ File Encoding         : 65001
 Date: 2018-08-19 16:28:19
 */
 
+DROP DATABASE IF EXISTS `news`;
+CREATE SCHEMA `news` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin ;
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
