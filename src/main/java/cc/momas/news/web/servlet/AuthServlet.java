@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cc.momas.news.common.BeanFactory;
-import cc.momas.news.common.UserConstant;
+import cc.momas.news.common.Constant;
 import cc.momas.news.entity.User;
 import cc.momas.news.service.UserService;
 
@@ -31,17 +31,17 @@ public class AuthServlet extends BaseServlet {
 	 * 用于登录
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = getParamReqired(UserConstant.USER_ID);
-		String password = getParamReqired(UserConstant.PASSWORD);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		String userId = getParamReqired(Constant.UserConstant.USER_ID);
+		String password = getParamReqired(Constant.UserConstant.PASSWORD);
 		User currentUser = userService.login(Integer.valueOf(userId),password);// 登录失败会抛出业务异常
 		
 		// 登录成功把用户放进session里
 		HttpSession session = request.getSession();
-		session.setAttribute(UserConstant.LOGIN_USER, currentUser);
+		session.setAttribute(Constant.UserConstant.LOGIN_USER, currentUser);
 		boolean isAdmin = currentUser.getIsAdmin();
 		if(isAdmin) {
-			session.setAttribute(UserConstant.IS_ADMIN, isAdmin);
+			session.setAttribute(Constant.UserConstant.IS_ADMIN, isAdmin);
 		}
 		// TODO: 把用户信息放到cookies里
 	}
@@ -51,6 +51,7 @@ public class AuthServlet extends BaseServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("logout");
 		HttpSession session = request.getSession();
 		if(session != null) {
 			session.invalidate(); // 注销整个Session

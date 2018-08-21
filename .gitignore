@@ -95,3 +95,8 @@ Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
 
+# JetBrains IDEs
+.idea/
+
+# IntelliJ
+out/

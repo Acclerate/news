@@ -11,8 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cc.momas.news.exception.BizException;
-
 /**
  * 所有的Servlet都以这个类为超类
  * 
@@ -31,22 +29,7 @@ public class BaseServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.request = req;
 		this.response = resp;
-		// 统一异常处理
-		try {
-			super.service(req, resp);
-		}catch (BizException e) {
-			// TODO: 业务逻辑异常
-		} catch (Exception e) {
-			log.info("response exception",e);
-		} finally {
-			// 重定向到指定URL,如果没有指定则跳到首页
-			String domain = request.getContextPath();
-			String location = request.getParameter("redirect") ;
-			if(StringUtils.isBlank(location)) {
-				location = "/";
-			}
-			response.sendRedirect(domain + location);
-		}
+		super.service(req, resp);
 	}
 
 	/**
@@ -58,6 +41,7 @@ public class BaseServlet extends HttpServlet {
 	 */
 	protected String getParam(String key) {
 		String value = this.request.getParameter(key);
+		log.debug("request parameter: key=[%s],value=[%s]", key, value); // 记录参数值
 		return StringUtils.trim(value);
 	}
 
@@ -71,8 +55,7 @@ public class BaseServlet extends HttpServlet {
 	protected String getParamReqired(String key) {
 		String value = getParam(key);
 		if (StringUtils.isEmpty(value)) {
-			this.response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			throw new IllegalArgumentException("缺少参数");
+			throw new IllegalArgumentException("缺少参数  : " + key);
 		}
 		return value;
 	}
