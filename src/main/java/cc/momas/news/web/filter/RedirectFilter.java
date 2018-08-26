@@ -16,6 +16,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import cc.momas.news.common.Constant;
 
+/**
+ * 这个过滤器用于重定向,如果一个页面具有重定向的属性,则会重定向,否则不起作用
+ * @author sothe
+ *
+ */
 @WebFilter(value="/",displayName="RedirectFilter",description="用于处理请求完成后重定向的Filter")
 public class RedirectFilter implements Filter {
 

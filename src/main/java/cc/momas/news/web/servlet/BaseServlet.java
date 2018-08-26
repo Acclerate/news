@@ -11,13 +11,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cc.momas.news.exception.BizException;
+
 /**
  * 所有的Servlet都以这个类为超类
+ * 
+ * 其实这个类也就是添加了两个取参数的方法，比较方便逻辑编写,和从HttpServlet直接继承没有太大区别
  * 
  * @author sothereer@gmail.com
  *
  */
-public class BaseServlet extends HttpServlet {
+public abstract class BaseServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 5291968243572163225L;
 	private static final Logger log = LoggerFactory.getLogger(BaseServlet.class);
@@ -31,7 +35,7 @@ public class BaseServlet extends HttpServlet {
 		this.response = resp;
 		super.service(req, resp);
 	}
-
+	
 	/**
 	 * 获取请求参数
 	 * 
@@ -55,7 +59,7 @@ public class BaseServlet extends HttpServlet {
 	protected String getParamReqired(String key) {
 		String value = getParam(key);
 		if (StringUtils.isEmpty(value)) {
-			throw new IllegalArgumentException("缺少参数  : " + key);
+			throw new BizException("缺少参数  : " + key);
 		}
 		return value;
 	}
