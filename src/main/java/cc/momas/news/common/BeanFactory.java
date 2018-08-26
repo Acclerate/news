@@ -18,8 +18,12 @@ public abstract class BeanFactory {
 
 	public static final String DAO_USER = "userDao";
 	public static final String SERVICE_USER = "userService";
-
+//	public static final String DATA_SOURCE = "dataSource"; // 数据源
+	
 	static {
+		
+//		factory.put(DATA_SOURCE, new DataSource());
+		
 		// 先准备DAO,再准备service,因为Service中需要Dao
 		// DAO
 		factory.put(DAO_USER, new UserDaoImpl());

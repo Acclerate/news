@@ -23,9 +23,8 @@ import cc.momas.news.exception.BizException;
  */
 public abstract class BaseServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 5291968243572163225L;
-	private static final Logger log = LoggerFactory.getLogger(BaseServlet.class);
-	
+//	private static final Logger log = LoggerFactory.getLogger(BaseServlet.class);
+	private static final long serialVersionUID = -2161590059800164478L;
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 
@@ -45,7 +44,7 @@ public abstract class BaseServlet extends HttpServlet {
 	 */
 	protected String getParam(String key) {
 		String value = this.request.getParameter(key);
-		log.debug("request parameter: key=[%s],value=[%s]", key, value); // 记录参数值
+//		log.debug("request parameter: key=[%s],value=[%s]", key, value); // 记录参数值
 		return StringUtils.trim(value);
 	}
 
