@@ -8,7 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +20,7 @@ import cc.momas.news.common.Constant;
  * @author sothe
  *
  */
-@WebFilter(value="/",displayName="RedirectFilter",description="用于处理请求完成后重定向的Filter")
+// @WebFilter(value="/*",displayName="RedirectFilter",description="用于处理请求完成后重定向的Filter")
 public class RedirectFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)

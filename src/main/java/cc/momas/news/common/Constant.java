@@ -33,4 +33,8 @@ public interface Constant {
 		// 是管理员
 		String IS_ADMIN = "isAdmin";
 	}
+
+	public interface ErrorPath{
+		String SERVER_ERROR_PAGE = "/error.html";
+	}
 }
