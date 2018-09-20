@@ -23,9 +23,7 @@ import cc.momas.news.service.UserService;
 public class AuthServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 271092257646101316L;
-	
 	private static final UserService userService = (UserService) BeanFactory.getBean(BeanFactory.SERVICE_USER);
-	
 	
 	/**
 	 * 用于登录
@@ -39,6 +37,7 @@ public class AuthServlet extends BaseServlet {
 		// 登录成功把用户放进session里
 		HttpSession session = request.getSession();
 		session.setAttribute(Constant.UserConstant.LOGIN_USER, currentUser);
+		// 保存用户的管理员状态
 		boolean isAdmin = currentUser.getIsAdmin();
 		if(isAdmin) {
 			session.setAttribute(Constant.UserConstant.IS_ADMIN, isAdmin);

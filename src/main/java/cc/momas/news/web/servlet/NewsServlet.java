@@ -7,11 +7,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cc.momas.news.common.BeanFactory;
+import cc.momas.news.service.NewsService;
+
 @WebServlet(value = { "/news" }, description = "新闻相关", displayName = "NewsServlet", name = "NewsServlet")
 public class NewsServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 4760738305339469459L;
-
+	private NewsService newsService = (NewsService)BeanFactory.getBean(BeanFactory.SERVICE_NEWS);
+	
 	/**
 	 * 用于获取新闻
 	 */

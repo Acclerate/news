@@ -7,11 +7,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cc.momas.news.common.BeanFactory;
+import cc.momas.news.service.UserService;
+
 @WebServlet(value = { "/user" }, description = "用户相关Servlet", displayName = "UserServlet", name = "UserServlet")
 public class UserServlet extends BaseServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	private UserService userService = (UserService)BeanFactory.getBean(BeanFactory.SERVICE_USER);
+	
 	/**
 	 * 查询一个用户 一般用于登录/查看用户信息
 	 */

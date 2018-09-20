@@ -33,6 +33,26 @@ public interface Constant {
 		// 是管理员
 		String IS_ADMIN = "isAdmin";
 	}
+	
+	/**
+	 * 这个接口用来存放状态值常量
+	 * @author sothe
+	 *
+	 */
+	public interface StatusConstant{
+		// 置顶
+		Byte TOP = 2;
+		// 精品
+		Byte GOOD = 1;
+		// 普通
+		Byte NORMAL = 0;
+		// 审核
+		Byte AUDIT = -1;
+		// 已删除
+		Byte DELETED = -2;
+		// 已封禁
+		Byte BAN = -3;
+	}
 
 	public interface ErrorPath{
 		String SERVER_ERROR_PAGE = "/error.html";

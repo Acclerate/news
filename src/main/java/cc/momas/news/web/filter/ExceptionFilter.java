@@ -35,7 +35,11 @@ public class ExceptionFilter implements Filter {
 		try {
 			chain.doFilter(request, response);
 		} catch (BizException e) {
-			// 直接发送 Bad Request 状态码给前端
+			// BizException 一般由于业务层执行时出的异常,也就是业务临时不可用
+			((HttpServletResponse)response).sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE,e.getMessage());
+		} catch (IllegalArgumentException | ServletException e) {
+			// IllegalArgumentException 是参数非法的异常
+			// ServletException 一般由于Servlet层验证参数失败导致,也就是参数非法
 			((HttpServletResponse)response).sendError(HttpServletResponse.SC_BAD_REQUEST,e.getMessage());
 		} catch (Exception e) {
 			// 重定向到错误页面
