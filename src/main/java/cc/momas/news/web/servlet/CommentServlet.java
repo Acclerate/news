@@ -116,7 +116,7 @@ public class CommentServlet extends BaseServlet {
 		if (StringUtils.isBlank(idString)) {
 			throw new IllegalArgumentException("未指定要删除的评论");
 		}
-		Integer id = NumberUtils.toInt(idString);
+		Integer id = NumberUtils.toInt(idString, -1);
 		commentService.delete(id, (User) loginUserObject);
 	}
 
