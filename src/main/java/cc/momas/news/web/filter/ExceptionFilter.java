@@ -23,7 +23,7 @@ import cc.momas.news.exception.BizException;
  * 
  * 当请求发生异常的时候,由这个Filter统一处理,
  * 
- * @author sothe
+ * @author sothereer@gmail.com
  */
 @WebFilter(value = { "/*" })
 public class ExceptionFilter implements Filter {
@@ -37,10 +37,12 @@ public class ExceptionFilter implements Filter {
 		} catch (BizException e) {
 			// BizException 一般由于业务层执行时出的异常,也就是业务临时不可用
 			((HttpServletResponse)response).sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE,e.getMessage());
-		} catch (IllegalArgumentException | ServletException e) {
-			// IllegalArgumentException 是参数非法的异常
+			log.debug("BizException",e);
+		} catch (RuntimeException | ServletException e) {
+			// RuntimeException 是参数非法的异常
 			// ServletException 一般由于Servlet层验证参数失败导致,也就是参数非法
 			((HttpServletResponse)response).sendError(HttpServletResponse.SC_BAD_REQUEST,e.getMessage());
+			log.debug("runtime or servlet exceptioin" , e);
 		} catch (Exception e) {
 			// 重定向到错误页面
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + Constant.ErrorPath.SERVER_ERROR_PAGE);
