@@ -15,7 +15,6 @@ import cc.momas.news.common.BeanFactory;
 import cc.momas.news.common.Constant;
 import cc.momas.news.common.JsonUtil;
 import cc.momas.news.entity.User;
-import cc.momas.news.exception.BizException;
 import cc.momas.news.service.UserService;
 
 @WebServlet(value = { "/user" }, description = "用户相关Servlet", displayName = "UserServlet", name = "UserServlet")
@@ -56,11 +55,11 @@ public class UserServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再添加用户");
+			throw new ServletException("请您登录后再添加用户");
 		}
 		Object isAdminObject = request.getSession().getAttribute(Constant.UserConstant.IS_ADMIN);
 		if (null == isAdminObject) {
-			throw new BizException("只有管理员可以添加用户");
+			throw new ServletException("只有管理员可以添加用户");
 		}
 
 		// 接收参数
@@ -93,7 +92,7 @@ public class UserServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再修改用户资料");
+			throw new ServletException("请您登录后再修改用户资料");
 		}
 
 		// 接收参数
@@ -120,11 +119,11 @@ public class UserServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再删除用户");
+			throw new ServletException("请您登录后再删除用户");
 		}
 		Object isAdminObject = request.getSession().getAttribute(Constant.UserConstant.IS_ADMIN);
 		if (null == isAdminObject) {
-			throw new BizException("只有管理员可以删除用户");
+			throw new ServletException("只有管理员可以删除用户");
 		}
 		// 接收参数
 		String idString = request.getParameter("id");
@@ -134,7 +133,7 @@ public class UserServlet extends BaseServlet {
 		}
 		Integer id = NumberUtils.toInt(idString, -1);
 		if (((User) loginUserObject).getId().equals(id)) {
-			throw new BizException("用户不可删除自己");
+			throw new ServletException("用户不可删除自己");
 		}
 		userService.delete(id, (User) loginUserObject);
 	}

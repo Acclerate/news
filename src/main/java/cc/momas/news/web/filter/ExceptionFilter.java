@@ -37,7 +37,7 @@ public class ExceptionFilter implements Filter {
 		} catch (BizException e) {
 			// BizException 一般由于业务层执行时出的异常,也就是业务临时不可用
 			((HttpServletResponse)response).sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE,e.getMessage());
-			log.debug("BizException",e);
+			log.debug("bussiness exception",e);
 		} catch (RuntimeException | ServletException e) {
 			// RuntimeException 是参数非法的异常
 			// ServletException 一般由于Servlet层验证参数失败导致,也就是参数非法
@@ -46,7 +46,7 @@ public class ExceptionFilter implements Filter {
 		} catch (Exception e) {
 			// 重定向到错误页面
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + Constant.ErrorPath.SERVER_ERROR_PAGE);
-			log.error("", e);
+			log.error("unkown exception", e);
 		}
 	}
 

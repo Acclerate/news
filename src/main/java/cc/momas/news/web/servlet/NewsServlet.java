@@ -16,7 +16,6 @@ import cc.momas.news.common.Constant;
 import cc.momas.news.common.JsonUtil;
 import cc.momas.news.entity.News;
 import cc.momas.news.entity.User;
-import cc.momas.news.exception.BizException;
 import cc.momas.news.service.NewsService;
 
 @WebServlet(value = { "/news" }, description = "新闻相关", displayName = "NewsServlet", name = "NewsServlet")
@@ -49,7 +48,7 @@ public class NewsServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再发表新闻");
+			throw new ServletException("请您登录后再发表新闻");
 		}
 
 		// 接收参数
@@ -84,7 +83,7 @@ public class NewsServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再修改新闻");
+			throw new ServletException("请您登录后再修改新闻");
 		}
 		
 		// 接收参数
@@ -117,7 +116,7 @@ public class NewsServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再删除新闻");
+			throw new ServletException("请您登录后再删除新闻");
 		}
 
 		// 接收参数

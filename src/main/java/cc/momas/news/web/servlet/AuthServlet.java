@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cc.momas.news.common.BeanFactory;
 import cc.momas.news.common.Constant;
 import cc.momas.news.entity.User;
@@ -22,6 +25,7 @@ import cc.momas.news.service.UserService;
 @WebServlet(value = { "/auth" }, description = "用于身份验证", displayName = "AuthServlet", name = "AuthServlet")
 public class AuthServlet extends BaseServlet {
 
+	private static final Logger log = LoggerFactory.getLogger(AuthServlet.class);
 	private static final long serialVersionUID = 271092257646101316L;
 	private static final UserService userService = (UserService) BeanFactory.getBean(BeanFactory.SERVICE_USER);
 	
@@ -30,8 +34,11 @@ public class AuthServlet extends BaseServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		// 接收参数
 		String userId = getParamReqired(Constant.UserConstant.USER_ID);
 		String password = getParamReqired(Constant.UserConstant.PASSWORD);
+		
+		// 调用业务
 		User currentUser = userService.login(Integer.valueOf(userId),password);// 登录失败会抛出业务异常
 		
 		// 登录成功把用户放进session里
@@ -50,7 +57,7 @@ public class AuthServlet extends BaseServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("logout");
+		log.debug("logout");
 		HttpSession session = request.getSession();
 		if(session != null) {
 			session.invalidate(); // 注销整个Session

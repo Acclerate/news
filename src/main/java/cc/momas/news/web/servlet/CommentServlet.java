@@ -16,7 +16,6 @@ import cc.momas.news.common.Constant;
 import cc.momas.news.common.JsonUtil;
 import cc.momas.news.entity.Comment;
 import cc.momas.news.entity.User;
-import cc.momas.news.exception.BizException;
 import cc.momas.news.service.CommentService;
 
 @WebServlet(value = { "/comment" }, description = "评论相关", displayName = "CommentServlet", name = "CommentServlet")
@@ -53,7 +52,7 @@ public class CommentServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再发表评论");
+			throw new ServletException("请您登录后再发表评论");
 		}
 
 		// 接收参数
@@ -81,7 +80,7 @@ public class CommentServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new BizException("请您登录后再修改评论");
+			throw new ServletException("请您登录后再修改评论");
 		}
 
 		// 接收参数

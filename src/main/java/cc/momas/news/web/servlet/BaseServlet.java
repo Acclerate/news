@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
-import cc.momas.news.exception.BizException;
-
 /**
  * 所有的Servlet都以这个类为超类
  * 
@@ -32,12 +30,11 @@ public abstract class BaseServlet extends HttpServlet {
 		this.response = resp;
 		super.service(req, resp);
 	}
-	
+
 	/**
 	 * 获取请求参数
 	 * 
-	 * @param key
-	 *            参数名
+	 * @param key 参数名
 	 * @return 参数值
 	 */
 	protected String getParam(String key) {
@@ -49,14 +46,14 @@ public abstract class BaseServlet extends HttpServlet {
 	/**
 	 * 获取请求必选参数
 	 * 
-	 * @param key
-	 *            参数名
+	 * @param key 参数名
 	 * @return 参数值
+	 * @throws ServletException 当参数找不到发生
 	 */
-	protected String getParamReqired(String key) {
+	protected String getParamReqired(String key) throws ServletException {
 		String value = getParam(key);
-		if (StringUtils.isEmpty(value)) {
-			throw new BizException("缺少参数  : " + key);
+		if (StringUtils.isBlank(value)) {
+			throw new ServletException("缺少参数  : " + key);
 		}
 		return value;
 	}

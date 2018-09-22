@@ -46,7 +46,7 @@ public class CategoryServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new ServletException("请您登录后再修改评论");
+			throw new ServletException("请您登录后再新增评论");
 		}
 
 		// 接收参数
@@ -107,7 +107,7 @@ public class CategoryServlet extends BaseServlet {
 		// 验证登录
 		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
 		if (loginUserObject == null) {
-			throw new ServletException("请您登录后再修改评论");
+			throw new ServletException("请您登录后再删除评论");
 		}
 
 		String idString = request.getParameter("id");
