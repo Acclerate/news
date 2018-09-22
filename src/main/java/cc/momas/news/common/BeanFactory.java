@@ -4,6 +4,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import cc.momas.news.dao.impl.UserDaoImpl;
+import cc.momas.news.service.impl.CategoryServiceImpl;
+import cc.momas.news.service.impl.CommentServiceImpl;
+import cc.momas.news.service.impl.NewsServiceImpl;
+import cc.momas.news.service.impl.UserServiceImpl;
 
 /**
  * 工具类应该是不可被实例化的,抽象的
@@ -37,7 +41,10 @@ public abstract class BeanFactory {
 		factory.put(DAO_USER, new UserDaoImpl());
 
 		// service
-//		factory.put(SERVICE_USER, new UserServiceImpl());
+		factory.put(SERVICE_USER, new UserServiceImpl());
+		factory.put(SERVICE_CATEGORY, new CategoryServiceImpl());
+		factory.put(SERVICE_NEWS, new NewsServiceImpl());	
+		factory.put(SERVICE_COMMENT, new CommentServiceImpl());
 
 	}
 
