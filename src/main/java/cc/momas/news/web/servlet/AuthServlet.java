@@ -35,11 +35,11 @@ public class AuthServlet extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		// 接收参数
-		String userId = getParamReqired(Constant.UserConstant.USER_ID);
-		String password = getParamReqired(Constant.UserConstant.PASSWORD);
+		String username = getParamReqired("username");
+		String password = getParamReqired("password");
 		
 		// 调用业务
-		User currentUser = userService.login(Integer.valueOf(userId),password);// 登录失败会抛出业务异常
+		User currentUser = userService.login(username,password);// 登录失败会抛出业务异常
 		
 		// 登录成功把用户放进session里
 		HttpSession session = request.getSession();

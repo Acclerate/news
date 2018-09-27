@@ -1,6 +1,7 @@
 package cc.momas.news.common;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * 用来把 java 对象序列化成 json 的工具类
@@ -10,7 +11,7 @@ import com.google.gson.Gson;
  */
 public abstract class JsonUtil {
 
-	private static final Gson gson = new Gson();
+	private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss:SSS").create();
 
 	/**
 	 * 把 java 对象序列化为 json 字符串

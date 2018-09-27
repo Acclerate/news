@@ -19,8 +19,8 @@ public class UserServiceTest {
 	public void adminLogin() throws ServletException {
 		User admin ;
 		UserService svc = (UserService) BeanFactory.getBean(BeanFactory.SERVICE_USER);
-		admin = svc.login(1, "admin");
-		admin = svc.login(1, "admin");
+		admin = svc.login("admin", "admin");
+		admin = svc.login("admin", "admin");
 		System.out.println(admin);
 		assertNotNull("管理员不存在或密码被更改",admin);
 	}

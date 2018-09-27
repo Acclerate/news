@@ -22,10 +22,8 @@ public class DataSource implements ServletContextListener {
 
 	private static final String username = "root";
 	private static final String password = "root";
-	// https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-driver-name.html
-	private static final String dbDriver = "com.mysql.cj.jdbc.Driver"; // MySQL 8.0 新驱动
-	// https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-jdbc-url-format.html
-	private static final String dbUrl = "jdbc:mysql://localhost:3308/news";
+	private static final String dbDriver = "com.mysql.cj.jdbc.Driver"; 
+	private static final String dbUrl = "jdbc:mysql://localhost:3306/news?characterEncoding=UTF-8&useServerPrepStmts=true&cachePrepStmts=true";
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {

@@ -74,6 +74,8 @@ mvn clean tomcat7:run
 	
 2. 打开浏览器,访问`http://localhost/news`以访问首页
 
+默认超级管理员用户名密码都为`admin`
+
 > 如果您的80端口被其他进程占用,您可以更改pom.xml配置文件里的端口号再进行启动项目
 
 

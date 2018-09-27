@@ -96,18 +96,20 @@ public class UserServlet extends BaseServlet {
 		}
 
 		// 接收参数
+		String idString = request.getParameter("id");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String isAdminString = request.getParameter("isAdmin");
 		String statusString = request.getParameter("status");
 
 		// 验证参数
+		Integer id = NumberUtils.toInt(idString, -1);
 		Boolean isAdmin = "1".equals(isAdminString); // 1 表示是,其他为否
 		// null 表示不修改数据库, 0 是有意义的,转换失败的时候将状态变为审核中
 		Byte status = StringUtils.isBlank(statusString) ? null
 				: NumberUtils.toByte(statusString, Constant.StatusConstant.AUDIT);
 
-		userService.update(username, password, isAdmin, status, (User) loginUserObject);
+		userService.update(id, username, password, isAdmin, status, (User) loginUserObject);
 
 	}
 

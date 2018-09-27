@@ -9,12 +9,12 @@ public interface UserService {
 
 	/**
 	 * 用户登录
-	 * @param userId 用户id
+	 * @param username 用户名
 	 * @param password 用户密码
 	 * @return 登录成功的用户
 	 * @throws BizException 当用户验证发生异常
 	 */
-	User login(Integer userId, String password) throws BizException;
+	User login(String username, String password) throws BizException;
 
 	/**
 	 * 分页查询用户
@@ -33,15 +33,20 @@ public interface UserService {
 	 */
 	void registe(String username, String password, boolean isAdmin, User oprator);
 
+
 	/**
-	 * 更新用户资料,多用于修改个人资料
+	 * 更新用户资料,多用于修改个人资料,管理员可以修改,用户自己也可修改
+	 * 
+	 * 空值表示不修改
+	 * 
+	 * @param id 用户id,不可空
 	 * @param username 用户名
 	 * @param password 密码,实现中记得加密 
 	 * @param isAdmin 是否为管理员, 可用于提权
 	 * @param status 更新后用户的状态,默认为审核中
 	 * @param oprator 操作者
 	 */
-	void update(String username, String password, Boolean isAdmin, Byte status, User oprator);
+	void update(Integer id, String username, String password, Boolean isAdmin, Byte status, User oprator);
 
 	/**
 	 * 删除用户
