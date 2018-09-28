@@ -100,3 +100,4 @@ ehthumbs_vista.db
 
 # IntelliJ
 out/
+*.iml
