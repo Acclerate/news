@@ -4,6 +4,8 @@ import cc.momas.news.common.DataSource;
 import cc.momas.news.dao.CommentDao;
 import cc.momas.news.entity.Comment;
 import cc.momas.news.exception.BizException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentDaoImpl implements CommentDao {
+
+    private static final Logger log = LoggerFactory.getLogger(CommentDaoImpl.class);
+
     @Override
     public List<Comment> list(String sql, String[] params) {
+        log.info("execute sql is : {}, params is {}", sql, params);
         // 获取数据库连接
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -47,6 +53,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void add(String sql, String[] params) {
+        log.info("execute sql is : {}, params is {}", sql, params);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -65,6 +72,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void update(String sql, String[] params) {
+        log.info("execute sql is : {}, params is {}", sql, params);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -83,6 +91,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void delete(String sql, Integer id) {
+        log.info("execute sql is : {}, params is {}", sql, id);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 

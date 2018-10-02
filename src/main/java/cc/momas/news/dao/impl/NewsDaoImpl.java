@@ -4,6 +4,8 @@ import cc.momas.news.common.DataSource;
 import cc.momas.news.dao.NewsDao;
 import cc.momas.news.entity.News;
 import cc.momas.news.exception.BizException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsDaoImpl implements NewsDao {
+
+
+    private static final Logger log = LoggerFactory.getLogger(NewsDaoImpl.class);
+
     @Override
     public List<News> list(String sql, String[] params) {
+        log.info("execute sql is : {}, params is {}", sql, params);
         // 获取数据库连接
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -48,6 +55,7 @@ public class NewsDaoImpl implements NewsDao {
 
     @Override
     public void add(String sql, String[] params) {
+        log.info("execute sql is : {}, params is {}", sql, params);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -66,6 +74,7 @@ public class NewsDaoImpl implements NewsDao {
 
     @Override
     public void update(String sql, String[] params) {
+        log.info("execute sql is : {}, params is {}", sql, params);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -84,6 +93,7 @@ public class NewsDaoImpl implements NewsDao {
 
     @Override
     public void datele(String sql, Integer id) {
+        log.info("execute sql is : {}, params is {}", sql, id);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 

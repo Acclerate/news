@@ -5,6 +5,8 @@ import cc.momas.news.dao.CategoryDao;
 import cc.momas.news.entity.Category;
 import cc.momas.news.entity.User;
 import cc.momas.news.exception.BizException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDaoImpl implements CategoryDao {
+
+    private static final Logger log = LoggerFactory.getLogger(CategoryDaoImpl.class);
+
     @Override
     public List<Category> list(String sql) {
+
+        log.info("execute sql is : {}", sql);
+
         // 获取数据库连接
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -28,7 +36,7 @@ public class CategoryDaoImpl implements CategoryDao {
                 Category obj = new Category();
                 obj.setId(result.getInt("id"));
                 obj.setCreatetime(result.getDate("createtime"));
-                obj.setUpdatetime(result.getDate("upcatetime"));
+                obj.setUpdatetime(result.getDate("updatetime"));
                 obj.setName(result.getString("name"));
                 obj.setParentId(result.getInt("parent_id"));
                 obj.setStatus(result.getByte("status"));
@@ -42,6 +50,9 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void insert(String sql, String[] params) {
+
+        log.info("execute sql is : {}, params is {}", sql,params);
+
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -60,6 +71,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void update(String sql, String[] params) {
+        log.info("execute sql is : {}, params is {}", sql,params);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -78,6 +90,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void delete(String sql, Integer id) {
+        log.info("execute sql is : {}, params is {}", sql,id);
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 

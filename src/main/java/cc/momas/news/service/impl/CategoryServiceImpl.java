@@ -25,6 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> list() {
         String sql = "SELECT `id`,`parent_id`,`name`,`createtime`,`updatetime`,`status` FROM `category`";
         List<Category> list = categoryDao.list(sql);
+        log.info("find {} rows data", list.size());
         return list;
     }
 
