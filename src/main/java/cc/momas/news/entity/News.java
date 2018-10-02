@@ -11,7 +11,7 @@ public class News {
 	private Integer categoryId;
 	private Integer userId;
 	private Date createtime;
-	private Date updatetie;
+	private Date updatetime;
 	private Byte status;
 
 	public Integer getId() {
@@ -70,12 +70,12 @@ public class News {
 		this.createtime = createtime;
 	}
 
-	public Date getUpdatetie() {
-		return updatetie;
+	public Date getUpdatetime() {
+		return updatetime;
 	}
 
-	public void setUpdatetie(Date updatetie) {
-		this.updatetie = updatetie;
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
 	}
 
 	public Byte getStatus() {
@@ -89,7 +89,7 @@ public class News {
 	@Override
 	public String toString() {
 		return "News [id=" + id + ", title=" + title + ", summary=" + summary + ", content=" + content + ", categoryId="
-				+ categoryId + ", userId=" + userId + ", createtime=" + createtime + ", updatetie=" + updatetie
+				+ categoryId + ", userId=" + userId + ", createtime=" + createtime + ", updatetime=" + updatetime
 				+ ", status=" + status + "]";
 	}
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface NewsDao {
 
-    List<News> list(int start, int rows);
+    List<News> list(String sql, String [] params);
 
     void add(String sql, String[] params);
 

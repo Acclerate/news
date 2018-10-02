@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import cc.momas.news.dao.impl.CategoryDaoImpl;
+import cc.momas.news.dao.impl.CommentDaoImpl;
+import cc.momas.news.dao.impl.NewsDaoImpl;
 import cc.momas.news.dao.impl.UserDaoImpl;
 import cc.momas.news.service.impl.CategoryServiceImpl;
 import cc.momas.news.service.impl.CommentServiceImpl;
@@ -41,6 +43,8 @@ public abstract class BeanFactory {
 		// DAO
 		factory.put(DAO_USER, new UserDaoImpl());
 		factory.put(DAO_CATEGORY,new CategoryDaoImpl());
+		factory.put(DAO_NEWS,new NewsDaoImpl());
+		factory.put(DAO_COMMENT,new CommentDaoImpl());
 
 		// service
 		factory.put(SERVICE_USER, new UserServiceImpl());
