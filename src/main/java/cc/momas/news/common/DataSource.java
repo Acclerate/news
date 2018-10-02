@@ -23,7 +23,7 @@ public class DataSource implements ServletContextListener {
 	private static final String username = "root";
 	private static final String password = "root";
 	private static final String dbDriver = "com.mysql.cj.jdbc.Driver"; 
-	private static final String dbUrl = "jdbc:mysql://localhost:3308/news?characterEncoding=UTF-8&useServerPrepStmts=true&cachePrepStmts=true";
+	private static final String dbUrl = "jdbc:mysql://localhost:3308/news?characterEncoding=UTF-8&useServerPrepStmts=true&cachePrepStmts=true&useSSL=false";
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
