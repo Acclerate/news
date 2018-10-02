@@ -19,6 +19,10 @@ public class NewsDaoImpl implements NewsDao {
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
 
+            for (int index = 0; index < params.length; index++) {
+                pre.setString(index + 1, params[index]);
+            }
+
             ResultSet result = pre.executeQuery();
 
             List<News> list = new ArrayList<>();

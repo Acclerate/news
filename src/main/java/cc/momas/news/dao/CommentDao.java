@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CommentDao {
 
-    List<Comment> list(String sql);
+    List<Comment> list(String sql, String[] params);
 
     void add(String sql, String[] params);
 

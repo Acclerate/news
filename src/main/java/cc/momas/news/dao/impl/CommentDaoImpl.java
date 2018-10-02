@@ -3,7 +3,6 @@ package cc.momas.news.dao.impl;
 import cc.momas.news.common.DataSource;
 import cc.momas.news.dao.CommentDao;
 import cc.momas.news.entity.Comment;
-import cc.momas.news.entity.News;
 import cc.momas.news.exception.BizException;
 
 import java.sql.Connection;
@@ -15,10 +14,14 @@ import java.util.List;
 
 public class CommentDaoImpl implements CommentDao {
     @Override
-    public List<Comment> list(String sql) {
+    public List<Comment> list(String sql, String[] params) {
         // 获取数据库连接
         try (Connection conn = DataSource.getConnection()) {
             PreparedStatement pre = conn.prepareStatement(sql);
+
+            for (int index = 0; index < params.length; index++) {
+                pre.setString(index + 1, params[index]);
+            }
 
             ResultSet result = pre.executeQuery();
 
