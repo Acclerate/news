@@ -30,7 +30,7 @@ public class DataSource implements ServletContextListener {
 		try {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
-			log.error("数据库驱动初始化失败", e);
+			log.error("数据库驱动初始化失败 | database driver init fail.", e);
 		}
 	}
 
@@ -38,7 +38,7 @@ public class DataSource implements ServletContextListener {
 		try {
 			return DriverManager.getConnection(dbUrl, username, password);
 		} catch (SQLException e) {
-			log.error("数据库连接失败", e);
+			log.error("数据库连接失败 | database connect error.", e);
 		}
 		return null;
 	}

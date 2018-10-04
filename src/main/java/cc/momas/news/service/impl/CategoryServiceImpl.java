@@ -1,10 +1,10 @@
 package cc.momas.news.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cc.momas.news.common.BeanFactory;
+import cc.momas.news.common.DateUtil;
 import cc.momas.news.dao.CategoryDao;
 import cc.momas.news.entity.Category;
 import cc.momas.news.entity.User;
@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> list() {
-        String sql = "SELECT `id`,`parent_id`,`name`,`createtime`,`updatetime`,`status` FROM `category`";
+        String sql = "SELECT `id`,`parent_id`,`name`,`createtime`,`updatetime`,`status` FROM `category` ORDER BY `id` ASC";
         List<Category> list = categoryDao.list(sql);
         log.info("find {} rows data", list.size());
         return list;
@@ -46,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
                 "(`id`, `parent_id`, `name`, `createtime`, `updatetime`, `status`) " +
                 "VALUES (null,?, ?, ?, ?, ?)";
         // 参数
-        String[] params = {String.valueOf(parentId), name, new Date().toString(), new Date().toString(), String.valueOf(0)};
+        String[] params = {String.valueOf(parentId), name, DateUtil.getNowString(), DateUtil.getNowString(), String.valueOf(0)};
         // 返回值
         categoryDao.insert(sql, params);
 
@@ -64,9 +64,10 @@ public class CategoryServiceImpl implements CategoryService {
         // 参数
         List<String> paramList = new ArrayList<>();
         // sql
-        String sql_prefix = "UPDATE `news`.`category` SET";
-        String sqlfix = "WHERE (`id` = ?) ";
+        String prefix = "UPDATE `news`.`category` SET";
+        String suffix = " WHERE (`id` = ?) ";
         StringBuilder sql = new StringBuilder();
+
         if (null != parentId) {
             sql.append(" `parent_id` = ?");
             paramList.add(String.valueOf(parentId));
@@ -83,18 +84,23 @@ public class CategoryServiceImpl implements CategoryService {
             sql.append(",");
         }
         sql.append(" `updatetime` = ?");
-        paramList.add(new Date().toString());
+        paramList.add(DateUtil.getNowString());
 
         if (null != status) {
             if (sql.length() > 0) {
                 sql.append(",");
             }
-            sql.append(" `status` = '?");
-            paramList.add(String.valueOf(status));
+            sql.append(" `status` = ?");
+            paramList.add(status.toString());
         }
 
+        paramList.add(id.toString());
+        // 组装成完整 SQL
+        sql.insert(0, prefix).append(suffix);
+
         // 返回值
-        categoryDao.update(sql.toString(), (String[]) paramList.toArray());
+        String[] arr = new String[paramList.size()];
+        categoryDao.update(sql.toString(), paramList.toArray(arr));
     }
 
     @Override

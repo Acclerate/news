@@ -42,8 +42,8 @@ public class NewsDaoImpl implements NewsDao {
                 obj.setContent(result.getString("content"));
                 obj.setCategoryId(result.getInt("category_id"));
                 obj.setUserId(result.getInt("user_id"));
-                obj.setUpdatetime(result.getDate("upcatetime"));
-                obj.setCreatetime(result.getDate("createtime"));
+                obj.setUpdatetime(result.getTimestamp("updatetime"));
+                obj.setCreatetime(result.getTimestamp("createtime"));
                 obj.setStatus(result.getByte("status"));
                 list.add(obj);
             }

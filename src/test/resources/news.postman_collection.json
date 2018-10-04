@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "2c049d5b-8088-419c-a7a3-d95f0c46e5dc",
+		"name": "news",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "addCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/category?name=测试分类&parentId=4",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"category"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "测试分类",
+									"description": " 类别名称"
+								},
+								{
+									"key": "parentId",
+									"value": "4",
+									"description": "父类别id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/category",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/category?id=19&name=名字&parentId=2&status=1",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"category"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "19"
+								},
+								{
+									"key": "name",
+									"value": "名字"
+								},
+								{
+									"key": "parentId",
+									"value": "2"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/category?id=17",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"category"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "17"
+								},
+								{
+									"key": "name",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/auth?username=admin&password=admin",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"auth"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/user",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/user?username=sod&password=sodsod&isAdmin=0",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"user"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "sod"
+								},
+								{
+									"key": "password",
+									"value": "sodsod"
+								},
+								{
+									"key": "isAdmin",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/user?id=2&username=&password=&isAdmin=1&status=0",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								},
+								{
+									"key": "username",
+									"value": ""
+								},
+								{
+									"key": "password",
+									"value": ""
+								},
+								{
+									"key": "isAdmin",
+									"value": "1"
+								},
+								{
+									"key": "status",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/user?id=2",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/auth",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "localhost/news/comment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/comment",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/comment?newsId=2&content=测试",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"comment"
+							],
+							"query": [
+								{
+									"key": "newsId",
+									"value": "2"
+								},
+								{
+									"key": "content",
+									"value": "测试"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/comment?id=2&content=aaaaaaa&status=",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"comment"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								},
+								{
+									"key": "content",
+									"value": "aaaaaaa"
+								},
+								{
+									"key": "status",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/comment?id=3",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"comment"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e7e22e32-b102-45bd-92d5-fe206006c41f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "94e7192c-163d-40e5-bb66-6c05f7e25418",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "localhost/news/news",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/news",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/news?title=标题2&summary=摘要&content=大新闻&categoryId=3",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"news"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "标题2"
+								},
+								{
+									"key": "summary",
+									"value": "摘要"
+								},
+								{
+									"key": "content",
+									"value": "大新闻"
+								},
+								{
+									"key": "categoryId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/news?id=2",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"news"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost/news/news?newsId=2&title=&summary= &content=修改内容2&categoryId=&status=0",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"news",
+								"news"
+							],
+							"query": [
+								{
+									"key": "newsId",
+									"value": "2"
+								},
+								{
+									"key": "title",
+									"value": ""
+								},
+								{
+									"key": "summary",
+									"value": " "
+								},
+								{
+									"key": "content",
+									"value": "修改内容2"
+								},
+								{
+									"key": "categoryId",
+									"value": ""
+								},
+								{
+									"key": "status",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -17,126 +17,137 @@ import cc.momas.news.common.JsonUtil;
 import cc.momas.news.entity.User;
 import cc.momas.news.service.UserService;
 
-@WebServlet(value = { "/user" }, description = "用户相关Servlet", displayName = "UserServlet", name = "UserServlet")
+@WebServlet(value = {"/user"}, description = "用户相关Servlet", displayName = "UserServlet", name = "UserServlet")
 public class UserServlet extends BaseServlet {
 
-	private static final long serialVersionUID = 1L;
-	private UserService userService = (UserService) BeanFactory.getBean(BeanFactory.SERVICE_USER);
+    private static final long serialVersionUID = 1L;
+    private UserService userService = (UserService) BeanFactory.getBean(BeanFactory.SERVICE_USER);
 
-	/**
-	 * 查询一个用户 一般用于登录/查看用户信息
-	 */
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 接收参数
-		String pageStartString = request.getParameter("pageStart");
-		String pageCountString = request.getParameter("pageCount");
-		// 验证参数
-		int pageStart = NumberUtils.toInt(pageStartString, 0); // 默认第一页,第0条
-		int pageCount = NumberUtils.toInt(pageCountString, 10); // 默认一页1条
-		// 调用业务
-		List<User> list = userService.listPage(pageStart, pageCount);
+    /**
+     * 查询用户列表,用于管理员管理其它用户
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 验证登录
+        Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
+        if (loginUserObject == null) {
+            throw new ServletException("请您登录后再查看用户");
+        }
+        Object isAdminObject = request.getSession().getAttribute(Constant.UserConstant.IS_ADMIN);
+        if (null == isAdminObject) {
+            throw new ServletException("只有管理员可以查看用户");
+        }
 
-		// 处理用户密码,避免泄露
-		for (User user : list) {
-			user.setPassword("[ PROTECTED ]");
-		}
+        // 接收参数
+        String pageStartString = request.getParameter("pageStart");
+        String pageCountString = request.getParameter("pageCount");
+        // 验证参数
+        int pageStart = NumberUtils.toInt(pageStartString, 0); // 默认第一页,第0条
+        int pageCount = NumberUtils.toInt(pageCountString, 10); // 默认一页1条
+        // 调用业务
+        List<User> list = userService.listPage(pageStart, pageCount);
 
-		// 返回结果
-		String json = JsonUtil.toJson(list);
-		response.getWriter().println(json);
-	}
+        // 处理用户密码,避免泄露
+        for (User user : list) {
+            user.setPassword("[ PROTECTED ]");
+        }
 
-	/**
-	 * 添加一个用户 一般用于注册
-	 */
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 验证登录
-		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
-		if (loginUserObject == null) {
-			throw new ServletException("请您登录后再添加用户");
-		}
-		Object isAdminObject = request.getSession().getAttribute(Constant.UserConstant.IS_ADMIN);
-		if (null == isAdminObject) {
-			throw new ServletException("只有管理员可以添加用户");
-		}
+        // 返回结果
+        String json = JsonUtil.toJson(list);
+        response.getWriter().println(json);
+    }
 
-		// 接收参数
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String isAdminString = request.getParameter("isAdmin");
+    /**
+     * 添加一个用户 一般用于注册
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 验证登录
+        Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
+        if (loginUserObject == null) {
+            throw new ServletException("请您登录后再添加用户");
+        }
+        Object isAdminObject = request.getSession().getAttribute(Constant.UserConstant.IS_ADMIN);
+        if (null == isAdminObject) {
+            throw new ServletException("只有管理员可以添加用户");
+        }
 
-		// 验证参数
-		// Blank 指空白字符,例如 \n,\r
-		// Empty 指长度为0的字符串,就算是空白字符串也不算Empty
-		if (StringUtils.isBlank(StringUtils.trim(username))) {
-			throw new IllegalArgumentException("用户名不能空");
-		}
-		if (StringUtils.isBlank(StringUtils.trim(password))) {
-			throw new IllegalArgumentException("密码不能为空");
-		}
-		if (password.length() < 6) {
-			throw new IllegalArgumentException("密码长度不能小于6");
-		}
-		boolean isAdmin = "1".equals(isAdminString); // 1 表示是, 其他是否
+        // 接收参数
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String isAdminString = request.getParameter("isAdmin");
 
-		userService.registe(username, password, isAdmin, (User) loginUserObject);
-	}
+        // 验证参数
+        // Blank 指空白字符,例如 \n,\r
+        // Empty 指长度为0的字符串,就算是空白字符串也不算Empty
+        if (StringUtils.isBlank(StringUtils.trim(username))) {
+            throw new IllegalArgumentException("用户名不能空");
+        }
+        if (StringUtils.isBlank(StringUtils.trim(password))) {
+            throw new IllegalArgumentException("密码不能为空");
+        }
+        if (password.length() < 6) {
+            throw new IllegalArgumentException("密码长度不能小于6");
+        }
+        boolean isAdmin = "1".equals(isAdminString); // 1 表示是, 其他是否
 
-	/**
-	 * 修改一个用户 一般用于修改个人资料
-	 */
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 验证登录
-		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
-		if (loginUserObject == null) {
-			throw new ServletException("请您登录后再修改用户资料");
-		}
+        userService.registe(username, password, isAdmin, (User) loginUserObject);
+    }
 
-		// 接收参数
-		String idString = request.getParameter("id");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String isAdminString = request.getParameter("isAdmin");
-		String statusString = request.getParameter("status");
+    /**
+     * 修改一个用户 一般用于修改个人资料
+     */
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 验证登录
+        Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
+        if (loginUserObject == null) {
+            throw new ServletException("请您登录后再修改用户资料");
+        }
 
-		// 验证参数
-		Integer id = NumberUtils.toInt(idString, -1);
-		Boolean isAdmin = "1".equals(isAdminString); // 1 表示是,其他为否
-		// null 表示不修改数据库, 0 是有意义的,转换失败的时候将状态变为审核中
-		Byte status = StringUtils.isBlank(statusString) ? null
-				: NumberUtils.toByte(statusString, Constant.StatusConstant.AUDIT);
+        // 接收参数
+        String idString = request.getParameter("id");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String isAdminString = request.getParameter("isAdmin");
+        String statusString = request.getParameter("status");
 
-		userService.update(id, username, password, isAdmin, status, (User) loginUserObject);
+        // 验证参数
+        Integer id = NumberUtils.toInt(idString, -1);
+        // 如果指定了 1 ,则为true,空为保留null,其他为false
+        Boolean isAdmin = StringUtils.isBlank(isAdminString) ? null : "1".equals(isAdminString);
+        // null 表示不修改数据库, 0 是有意义的,转换失败的时候将状态变为审核中
+        Byte status = StringUtils.isBlank(statusString) ? null
+                : NumberUtils.toByte(statusString, Constant.StatusConstant.AUDIT);
 
-	}
+        userService.update(id, username, password, isAdmin, status, (User) loginUserObject);
 
-	/**
-	 * 删除一个用户 一般用于用户删除
-	 */
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 验证登录
-		Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
-		if (loginUserObject == null) {
-			throw new ServletException("请您登录后再删除用户");
-		}
-		Object isAdminObject = request.getSession().getAttribute(Constant.UserConstant.IS_ADMIN);
-		if (null == isAdminObject) {
-			throw new ServletException("只有管理员可以删除用户");
-		}
-		// 接收参数
-		String idString = request.getParameter("id");
-		// 验证参数
-		if (StringUtils.isBlank(idString)) {
-			throw new IllegalArgumentException("未指定要删除的评论");
-		}
-		Integer id = NumberUtils.toInt(idString, -1);
-		if (((User) loginUserObject).getId().equals(id)) {
-			throw new ServletException("用户不可删除自己");
-		}
-		userService.delete(id, (User) loginUserObject);
-	}
+    }
+
+    /**
+     * 删除一个用户 一般用于用户删除
+     */
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 验证登录
+        Object loginUserObject = request.getSession().getAttribute(Constant.UserConstant.LOGIN_USER);
+        if (loginUserObject == null) {
+            throw new ServletException("请您登录后再删除用户");
+        }
+        Object isAdminObject = request.getSession().getAttribute(Constant.UserConstant.IS_ADMIN);
+        if (null == isAdminObject) {
+            throw new ServletException("只有管理员可以删除用户");
+        }
+        // 接收参数
+        String idString = request.getParameter("id");
+        // 验证参数
+        if (StringUtils.isBlank(idString)) {
+            throw new IllegalArgumentException("未指定要删除的评论");
+        }
+        Integer id = NumberUtils.toInt(idString, -1);
+        if (((User) loginUserObject).getId().equals(id)) {
+            throw new ServletException("用户不可删除自己");
+        }
+        userService.delete(id, (User) loginUserObject);
+    }
 }

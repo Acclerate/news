@@ -40,8 +40,8 @@ public class CommentDaoImpl implements CommentDao {
                 obj.setIp(result.getString("ip"));
                 obj.setNewsId(result.getInt("news_id"));
                 obj.setUserId(result.getInt("user_id"));
-                obj.setCreatetime(result.getDate("createtime"));
-                obj.setUpdatetime(result.getDate("updatetime"));
+                obj.setCreatetime(result.getTimestamp("createtime"));
+                obj.setUpdatetime(result.getTimestamp("updatetime"));
                 obj.setStatus(result.getByte("status"));
                 list.add(obj);
             }

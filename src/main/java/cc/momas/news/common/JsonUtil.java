@@ -3,6 +3,8 @@ package cc.momas.news.common;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.text.DateFormat;
+
 /**
  * 用来把 java 对象序列化成 json 的工具类
  * 
@@ -11,7 +13,7 @@ import com.google.gson.GsonBuilder;
  */
 public abstract class JsonUtil {
 
-	private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss:SSS").create();
+	private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 	/**
 	 * 把 java 对象序列化为 json 字符串

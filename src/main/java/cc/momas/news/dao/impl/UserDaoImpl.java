@@ -38,8 +38,8 @@ public class UserDaoImpl implements UserDao {
                 user.setId(result.getInt("id"));
                 user.setUsername(result.getString("username"));
                 user.setPassword(result.getString("password"));
-                user.setCreatetime(result.getDate("createtime"));
-                user.setUpdatetime(result.getDate("updatetime"));
+                user.setCreatetime(result.getTimestamp("createtime"));
+                user.setUpdatetime(result.getTimestamp("updatetime"));
                 user.setIsAdmin(result.getBoolean("is_admin"));
                 user.setStatus(result.getByte("status"));
             }
@@ -69,8 +69,8 @@ public class UserDaoImpl implements UserDao {
                 user.setId(result.getInt("id"));
                 user.setUsername(result.getString("username"));
                 user.setPassword(result.getString("password"));
-                user.setCreatetime(result.getDate("createtime"));
-                user.setUpdatetime(result.getDate("updatetime"));
+                user.setCreatetime(result.getTimestamp("createtime"));
+                user.setUpdatetime(result.getTimestamp("updatetime"));
                 user.setIsAdmin(result.getBoolean("is_admin"));
                 user.setStatus(result.getByte("status"));
                 list.add(user);

@@ -35,8 +35,8 @@ public class CategoryDaoImpl implements CategoryDao {
             while (result.next()) {
                 Category obj = new Category();
                 obj.setId(result.getInt("id"));
-                obj.setCreatetime(result.getDate("createtime"));
-                obj.setUpdatetime(result.getDate("updatetime"));
+                obj.setCreatetime(result.getTimestamp("createtime"));
+                obj.setUpdatetime(result.getTimestamp("updatetime"));
                 obj.setName(result.getString("name"));
                 obj.setParentId(result.getInt("parent_id"));
                 obj.setStatus(result.getByte("status"));

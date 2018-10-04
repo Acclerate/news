@@ -9,11 +9,13 @@ public interface CommentService {
 
 	/**
 	 * 获取 comment 列表
-	 * @param pageStart 分页起始下标,指定每一页第一个的下标
-	 * @param pageCount 分布容量,指定每页多少行数据
-	 * @return comment列表
+	 *
+     * @param newsId 新闻id,表示这个评论属于哪个新闻,可空
+     * @param pageStart 分页起始下标,指定每一页第一个的下标
+     * @param pageCount 分布容量,指定每页多少行数据
+     * @return comment列表
 	 */
-	List<Comment> listPage(int pageStart, int pageCount);
+	List<Comment> listPage(Integer newsId, Integer pageStart, Integer pageCount);
 
 	/**
 	 * 添加一个 comment

@@ -16,10 +16,20 @@ public class CommentServiceImpl implements CommentService {
     CommentDao commentDao = (CommentDao) BeanFactory.getBean(BeanFactory.DAO_COMMENT);
 
     @Override
-    public List<Comment> listPage(int pageStart, int pageCount) {
-        String sql = "SELECT `id`,`content`,`ip`,`news_id`,`user_id`,`createtime`,`updatetime`,`status` FROM news.`comment` LIMIT ?,?";
-        String[] params = {String.valueOf(pageStart), String.valueOf(pageCount)};
-        List<Comment> list = commentDao.list(sql, params);
+    public List<Comment> listPage(Integer newsId, Integer pageStart, Integer pageCount) {
+        List<String> paramList = new ArrayList<>(3);
+
+        String sql = "SELECT `id`,`content`,`ip`,`news_id`,`user_id`,`createtime`,`updatetime`,`status` FROM `comment`";
+        if (null != newsId) {
+            sql += "WHERE `news_id` = ?";
+            paramList.add(newsId.toString());
+        }
+        sql += " LIMIT ?,?";
+        paramList.add(pageStart.toString());
+        paramList.add(pageCount.toString());
+
+        String[] arr = new String[paramList.size()];
+        List<Comment> list = commentDao.list(sql, paramList.toArray(arr));
         return list;
     }
 
@@ -34,12 +44,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void update(Integer id, String content, String ip, Byte status, User oprator) {
+        if (null == id || id < 0) {
+            throw new BizException("评论id未指定");
+        }
         // 参数验证
         if (!oprator.getIsAdmin()) {
             // 非管理员操作
             throw new BizException("您没有权限,您配吗?");
         }
-        String prefix = "UPDATE `news`.`comment` SET ";
+        String prefix = "UPDATE `comment` SET ";
         String suffix = "WHERE (`id` = ?)";
         StringBuilder sql = new StringBuilder();
         List<String> paramList = new ArrayList<>();
@@ -53,7 +66,7 @@ public class CommentServiceImpl implements CommentService {
                 sql.append(",");
             }
             sql.append(" `ip` = ?");
-            paramList.add(content);
+            paramList.add(ip);
         }
 
         if (sql.length() > 0) {
@@ -68,8 +81,12 @@ public class CommentServiceImpl implements CommentService {
             sql.append(" `status` = ?");
             paramList.add(String.valueOf(status));
         }
+
+        sql.insert(0, prefix).append(suffix);
         paramList.add(String.valueOf(id));
-        commentDao.update(sql.toString(), (String[]) paramList.toArray());
+
+        String[] arr = new String[paramList.size()];
+        commentDao.update(sql.toString(), paramList.toArray(arr));
     }
 
     @Override

@@ -61,14 +61,14 @@ public class NewsServiceImpl implements NewsService {
 
         StringBuilder sql = new StringBuilder();
         String prefix = "UPDATE `news` SET ";
-        String suffix = "WHERE (`id` = ?)";
+        String suffix = " WHERE (`id` = ?)";
         List<String> paramList = new ArrayList<>();
 
-        if (null != title) {
+        if (StringUtils.isNotBlank(title)) {
             sql.append(" `title` = ?");
             paramList.add(title);
         }
-        if (StringUtils.isNoneBlank(summary)) {
+        if (StringUtils.isNotBlank(summary)) {
             if (sql.length() > 0) {
                 sql.append(",");
             }
@@ -80,25 +80,34 @@ public class NewsServiceImpl implements NewsService {
                 sql.append(",");
             }
             sql.append(" `category_id` = ?");
-            paramList.add(summary);
+            paramList.add(categoryId.toString());
         }
         if (null != status) {
             if (sql.length() > 0) {
                 sql.append(",");
             }
             sql.append(" `status` = ?");
-            paramList.add(summary);
+            paramList.add(status.toString());
         }
 
-        if (StringUtils.isNoneBlank(summary)) {
+        if (StringUtils.isNotBlank(content)) {
             if (sql.length() > 0) {
                 sql.append(",");
             }
-            sql.append(" `updatetime` = NOW()");
-            paramList.add(summary);
+            sql.append(" `content` = ?");
+            paramList.add(content);
         }
-        sql = sql.insert(0,prefix).append(suffix);
-        newsDao.update(sql.toString(), (String[]) paramList.toArray());
+
+        if (sql.length() > 0) {
+            sql.append(",");
+        }
+        sql.append(" `updatetime` = NOW()");
+
+        sql = sql.insert(0, prefix).append(suffix);
+        paramList.add(newsId);
+
+        String[] arr = new String[paramList.size()];
+        newsDao.update(sql.toString(), paramList.toArray(arr));
     }
 
 }
